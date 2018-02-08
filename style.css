@@ -19,3 +19,32 @@
   width: 100%;
   top: 0;
 }
+
+.board {
+  border: 2px solid black;
+  border-radius: 20px;
+  margin-top: 40px;
+  padding: 10px;
+}
+
+.board:hover {
+  border-color: blue;
+  cursor: pointer;
+}
+
+.board-full {
+  background-color: #ffb428;
+}
+
+.board-empty {
+  background-color: #ba821b;
+}
+
+.board-text {
+  background-color: #515151;
+  color: white;
+  width: 70%;
+  margin: auto;
+  padding: 10px;
+  border-radius: 10px;
+}
