@@ -16,7 +16,7 @@
   <script src="script.js"></script>
 </head>
 <body ng-app="CloudBoard" style="background-color: #dbdbdb;">
-  <nav class="navbar navbar-defaul" style="border-bottom: 1px solid black; background-color: #ff8421;">
+  <nav class="navbar navbar-defaul" style="border-bottom: 1px solid black; background-color: #FF7233;">
     <div class="container">
       <div class="navbar-header" style="margin: auto;">
         <h1>CloudBoard</h1>
@@ -36,9 +36,10 @@
     <h1 ng-show="loggedIn" style="text-align:center; padding-top:20px;">Welcome, {{name}}!</h1>
     <div class="boardsView">
       <div ng-repeat="x in boards" class="col-lg-12">
-        <div class="board" ng-class="x.hasContent ? 'board-full' : 'board-empty'">
+        <div class="board" ng-class="x.hasContent ? 'board-full' : 'board-empty'" ng-click="x.hasContent && !x.pasting ? copyFromBoard(x) : pasteToBoard(x)">
           <h3 style="text-align:center;">Board {{x.id}}</h3>
           <div class="board-text" ng-show="x.hasContent">
+            <input type="text" id="{{x.id}}pasting" class="pasteInput" ng-model="x.content" ng-show="x.pasting" ng-keyup="keyCheck($event, x)" />
             {{x.preview}}
           </div>
         </div>

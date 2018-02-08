@@ -33,11 +33,11 @@
 }
 
 .board-full {
-  background-color: #ffb428;
+  background-color: #FF9646;
 }
 
 .board-empty {
-  background-color: #ba821b;
+  background-color: #F37C23;
 }
 
 .board-text {
@@ -47,4 +47,15 @@
   margin: auto;
   padding: 10px;
   border-radius: 10px;
+}
+
+.pasteInput {
+  border: none;
+  background: transparent;
+  color: white;
+  width: 100%;
+}
+
+.pasteInput:focus {
+  outline-width: 0;
 }
