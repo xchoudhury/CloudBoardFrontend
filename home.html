@@ -11,16 +11,29 @@
 
   <!-- AngularJS -->
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular.min.js"></script>
-  
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular-cookies.min.js"></script>
+
   <script src="script.js"></script>
 </head>
-<body>
-  <nav class="navbar navbar-defaul" style="border-bottom: 1px solid black;">
+<body ng-app="CloudBoard">
+  <nav class="navbar navbar-defaul" style="border-bottom: 1px solid black; background-color: #ff8421;">
     <div class="container">
       <div class="navbar-header" style="margin: auto;">
         <h1>CloudBoard</h1>
       </div>
     </div>
   </nav>
+
+  <div ng-controller="login" ng-show="!loggedIn" class="overlay" style="background-color:rgba(0, 0, 0, 0.5);">
+      <div class="loginWindow">
+        <input type="text" ng-model="username" style="width:100%" placeholder="username" /> <br />
+        <input type="password" ng-model="password" style="width:100%" placeholder="password" /> <br />
+        <button ng-click="logIn()" style="width:100%">Log In </button>
+      </div>
+  </div>
+
+  <div ng-controller="boards" class="container">
+    <h1 ng-show="loggedIn">Welcome, {{name}}!</h1>
+  </div>
 </body>
 </html>
