@@ -14,10 +14,11 @@
 }
 
 .overlay {
-  position: absolute;
+  position: fixed;
   height: 100%;
   width: 100%;
   top: 0;
+  z-index: 999;
 }
 
 .board {
@@ -33,11 +34,11 @@
 }
 
 .board-full {
-  background-color: #FF9646;
+  background-color: #FF9A40;
 }
 
 .board-empty {
-  background-color: #F37C23;
+  background-color: #FFB573;
 }
 
 .board-text {

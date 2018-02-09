@@ -9,31 +9,29 @@ function Board(id, hasContent, preview, content) {
 var app = angular.module('CloudBoard', ['ngCookies']);
 
 app.factory('loginService', ['$rootScope', '$cookies', '$cookieStore', function($rootScope, $cookies, $cookieStore) {
-  var loggedIn = false;
+  var loggedIn = true;
   var user = "admin";
-  var logins = {'admin': 'admin'};
 
   var logIn = function(username, password) {
-    if (!(logins[username] == password)) {
-      return false;
-    }
     loggedIn = true;
     user = username;
     $cookieStore.put("loggedIn", "true");
     $cookieStore.put("user", username);
     $rootScope.$broadcast('loggingIn');
-    return true;
   };
 
   var logOut = function() {
     loggedIn = false;
     user = "";
     $cookieStore.put("loggedIn", false);
+    $rootScope.$broadcast('loggingOut');
   };
 
   var getLoginStatus = function() {
-    //$rootScope.$broadcast('loggingIn');
-    return $cookieStore.get("loggedIn") || loggedIn;
+    if ($cookieStore.get("loggedIn")) {
+      loggedIn = true;
+    }
+    return loggedIn;
   };
 
   var getUserName = function() {
@@ -57,10 +55,14 @@ app.controller('boards', ['$scope', '$http', '$window', 'loginService', function
   $scope.$on('loggingIn', function() {
     $scope.loggedIn = loginService.getLoginStatus();
     $scope.name = loginService.getUserName();
-    $scope.createBasicBoard();
-    $scope.createBlankBoard(2);
-    $scope.createBlankBoard(3);
+    $scope.getBoards();
   });
+
+  $scope.$on('loggingOut', function() {
+    $scope.loggedIn = loginService.getLoginStatus();
+    $scope.name = loginService.getUserName();
+    $scope.boards = [];
+  })
 
   $scope.createBasicBoard = function() {
     var basicBoard = new Board(1, true, "some sample text", "some sample text");
@@ -71,6 +73,16 @@ app.controller('boards', ['$scope', '$http', '$window', 'loginService', function
     var blankBoard = new Board(id, false, "", "");
     $scope.boards.push(blankBoard);
   };
+
+  $scope.getBoards = function() {
+    $scope.boards = [];
+    $scope.createBasicBoard();
+    $scope.createBlankBoard(2);
+    $scope.createBlankBoard(3);
+  };
+
+
+  $scope.getBoards();
 
   $scope.copyFromBoard = function(board) {
     if (!board.hasContent) {
@@ -118,14 +130,23 @@ app.controller('login', ['$scope', '$http', 'loginService', function($scope, $ht
   $scope.loggedIn = loginService.getLoginStatus();
   $scope.username;
   $scope.password;
+  var logins = {'admin': 'admin'};
+
+  $scope.keyCheck = function(e) {
+    if (e.keyCode == 13) {
+      $scope.logIn();
+    }
+  }
 
   $scope.logIn = function() {
-    var logInSuccessful = loginService.logIn($scope.username, $scope.password);
-    if (logInSuccessful != true) {
-      alert('Login failed');
+    if (!(logins[$scope.username] == $scope.password)) {
+      alert('Login failed!');
+      return;
     }
+    loginService.logIn($scope.username, $scope.password);
     $scope.loggedIn = loginService.getLoginStatus();
   };
+
   $scope.logOut = function() {
     loginService.logOut();
   };
