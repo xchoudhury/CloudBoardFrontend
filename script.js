@@ -47,15 +47,45 @@ app.factory('loginService', ['$rootScope', '$cookies', '$cookieStore', function(
   };
 }]);
 
+app.controller('settings', ['$scope', 'loginService', function($scope, loginService) {
+  $scope.settingsVisible = false;
+
+  $scope.toggle = function() {
+    if (!$scope.settingsVisible) {
+      $('#settingsButton').html('close');
+      $scope.settingsVisible = true;
+      $('#settingsDiv').addClass("settingsPanel");
+    }
+    else {
+      $('#settingsButton').html('menu');
+      $scope.settingsVisible = false;
+      $('#settingsDiv').removeClass("settingsPanel");
+    }
+    $('#dimmer').toggle();
+    $('.settingsOptions').toggle();
+  };
+
+  $scope.logOut = function() {
+    $scope.toggle();
+    $('#dimmer').show();
+    loginService.logOut();
+  }
+}]);
+
 app.controller('boards', ['$scope', '$http', '$window', 'loginService', function($scope, $http, $window, loginService) {
   $scope.loggedIn = loginService.getLoginStatus();
   $scope.name = loginService.getUserName();
   $scope.boards = [];
 
+  if ($scope.loggedIn) {
+    $('#dimmer').hide();
+  }
+
   $scope.$on('loggingIn', function() {
     $scope.loggedIn = loginService.getLoginStatus();
     $scope.name = loginService.getUserName();
     $scope.getBoards();
+    $('#dimmer').hide();
   });
 
   $scope.$on('loggingOut', function() {
@@ -131,6 +161,12 @@ app.controller('login', ['$scope', '$http', 'loginService', function($scope, $ht
   $scope.username;
   $scope.password;
   var logins = {'admin': 'admin'};
+
+  $scope.$on('loggingOut', function() {
+    $scope.loggedIn = loginService.getLoginStatus();
+    $scope.username = "";
+    $scope.password = "";
+  })
 
   $scope.keyCheck = function(e) {
     if (e.keyCode == 13) {

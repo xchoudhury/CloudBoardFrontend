@@ -14,6 +14,10 @@
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular-cookies.min.js"></script>
 
+  <!-- jQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+  <!-- Icons -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
   <script src="script.js"></script>
@@ -25,10 +29,18 @@
         <h1>CloudBoard</h1>
       </div>
     </div>
-    <i class="material-icons" style="font-size:36px; cursor:pointer;">menu</i>
   </nav>
 
-  <div ng-controller="login" ng-show="!loggedIn" class="overlay" style="background-color:rgba(0, 0, 0, 0.5);">
+  <div ng-controller="settings" id="settingsDiv" class="settings">
+    <i class="material-icons" style="font-size:36px; cursor:pointer;" id="settingsButton" ng-click="toggle()">menu</i>
+    <div class="settingsOptions">
+      <span class="settingsLink" ng-click="logOut()">Log Out</span>
+    </div>
+  </div>
+
+  <div class="overlay" id="dimmer"></div>
+
+  <div ng-controller="login" ng-show="!loggedIn">
       <div class="loginWindow">
         <input type="text" ng-model="username" style="width:100%" placeholder="username" autofocus /> <br />
         <input type="password" ng-model="password" style="width:100%" placeholder="password" ng-keyup="keyCheck($event)" /> <br />
