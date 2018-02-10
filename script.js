@@ -118,6 +118,7 @@ app.controller('boards', ['$scope', '$http', '$window', 'loginService', function
     if (!board.hasContent) {
       return;
     }
+    $('#copyAlert').hide();
     var textarea = document.createElement( "textarea" );
     textarea.style.height = "0px";
     textarea.style.left = "-100px";
@@ -130,7 +131,10 @@ app.controller('boards', ['$scope', '$http', '$window', 'loginService', function
     textarea.select();
     document.execCommand('copy');
     textarea.parentNode.removeChild( textarea );
-    alert('Board ' + board.id + ' data copied! \nData: ' + board.content);
+    $('#copyAlert').show();
+    setTimeout(function() {
+      $('#copyAlert').fadeOut(300);
+    }, 3000);
   };
 
   $scope.pasteToBoard = function(board) {
