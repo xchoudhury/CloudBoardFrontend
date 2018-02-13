@@ -154,9 +154,21 @@ app.controller('boards', ['$scope', '$http', '$window', 'loginService', function
   $scope.savePaste = function(board) {
     board.pasting = false;
     board.hasContent = true;
-    board.preview = board.content;
+    board.preview = $scope.filterPreview(board.content);
     // Send to server
   };
+
+  $scope.filterPreview = function(x) {
+    if (typeof x == undefined) {
+      return "";
+    }
+    if (x.length <= 45) {
+      return x;
+    }
+    else {
+      return x.substring(0, 44) + "...";
+    }
+  }
 
 }]);
 
