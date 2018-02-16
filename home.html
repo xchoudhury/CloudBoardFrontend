@@ -16,6 +16,8 @@
 
   <!-- jQuery -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
   <!-- Icons -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -33,9 +35,12 @@
 
   <div ng-controller="settings" id="settingsDiv" class="settings">
     <i class="material-icons" style="font-size:36px; cursor:pointer;" id="settingsButton" ng-click="toggle()">menu</i>
-    <div class="settingsOptions">
-      <span class="settingsLink" ng-click="logOut()">Log Out</span>
-      <a href="faq.html" style="color:black; text-decoration:none">FAQ</a>
+    <div class="settingsPanel">
+      <i class="material-icons" style="font-size:36px; cursor:pointer; margin-top: 15px;" ng-click="toggle()">close</i>
+      <div class="settingsOptions">
+        <div class="settingsLink" ng-click="logOut()">Log Out</div>
+        <a href="faq.html" style="text-decoration:none;" class="settingsLink">FAQ</a>
+      </div>
     </div>
   </div>
 
@@ -62,7 +67,7 @@
         </div>
       </div>
     </div>
-    <div id="copyAlert" class="alert alert-success alert-dismissible fade show" role="alert" style="position: fixed; bottom: 0; width: 100%; left: 0; display: none;">
+    <div id="copyAlert" class="alert alert-success alert-dismissible fade show" role="alert" style="position: fixed; bottom: 20px; width: 75%; left: 12.5%; display: none;">
       Successfully coppied data from board!
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>

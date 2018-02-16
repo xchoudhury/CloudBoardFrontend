@@ -52,17 +52,21 @@ app.controller('settings', ['$scope', 'loginService', function($scope, loginServ
 
   $scope.toggle = function() {
     if (!$scope.settingsVisible) {
-      $('#settingsButton').html('close');
       $scope.settingsVisible = true;
-      $('#settingsDiv').addClass("settingsPanel");
+      //$('.settingsPanel').show();
+      //$('#settingsDiv').addClass("settingsPanel");
+      $('.settingsPanel').width("150px");
+      //$('.settingsPanel').show("slide", {direction: "left"}, 500);
     }
     else {
-      $('#settingsButton').html('menu');
       $scope.settingsVisible = false;
-      $('#settingsDiv').removeClass("settingsPanel");
+      //$('.settingsPanel').hide();
+      //$('#settingsDiv').removeClass("settingsPanel");
+      $('.settingsPanel').width("0");
+      //$('.settingsPanel').hide("slide", {direction: "right"}, 500);
     }
     $('#dimmer').toggle();
-    $('.settingsOptions').toggle();
+    //$('.settingsOptions').toggle();
   };
 
   $scope.logOut = function() {

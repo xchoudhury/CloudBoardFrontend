@@ -20,7 +20,7 @@
   height: 100%;
   width: 100%;
   top: 0;
-  z-index: 998;
+  z-index: 997;
 }
 
 .board {
@@ -74,18 +74,24 @@
 }
 
 .settingsPanel {
+  position: absolute;
+  top: 0;
+  right: 0;
   background-color: #b2b2b2;
   width: 150px;
-  height: 100%;
+  height: 100vh;
+  transition: 0.2s;
+  z-index: 999;
+  width: 0;
 }
 
 .settingsOptions {
-  padding: 5px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  display: none;
+  padding: 15px;
 }
 
 .settingsLink {
+  margin-top: 15px;
+  margin: 5px;
   cursor: pointer;
+  color: white;
 }
