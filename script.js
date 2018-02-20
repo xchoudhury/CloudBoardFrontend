@@ -8,12 +8,34 @@ function Board(id, hasContent, preview, content) {
 
 var app = angular.module('CloudBoard', ['ngCookies']);
 
-app.factory('loginService', ['$rootScope', '$cookies', '$cookieStore', function($rootScope, $cookies, $cookieStore) {
-  var loggedIn = true;
+app.factory('loginService', ['$rootScope', '$http', '$cookies', '$cookieStore', function($rootScope, $http, $cookies, $cookieStore) {
+  var loggedIn = false;
   var user = "admin";
 
   var logIn = function(username, password) {
     loggedIn = true;
+    /*
+    $http({
+      method: 'POST',
+      url: 'https://cloudboardbackend.herokuapp.com/api-auth/login/',
+      data: {
+        username: 'root',
+        password: 'admin'
+      }
+    }).then(function successCallback(response) {
+      console.log(response);
+    }, function errorCallback(response) {
+      console.log(response);
+    });
+    $http({
+      method: 'GET',
+      url: 'https://cloudboardbackend.herokuapp.com/auth/me/'
+    }).then(function successCallback(response) {
+      console.log(response);
+    }, function errorCallback(response) {
+      console.log(response);
+    });
+    */
     user = username;
     $cookieStore.put("loggedIn", "true");
     $cookieStore.put("user", username);
@@ -109,14 +131,29 @@ app.controller('boards', ['$scope', '$http', '$window', 'loginService', function
   };
 
   $scope.getBoards = function() {
+    /*
+    $http({
+      method: 'GET',
+      url: 'https://cloudboardbackend.herokuapp.com/clipboards/'
+    }).then(function successCallback(response) {
+      console.log(reponse);
+    }, function errorCallback(response) {
+      console.log(response);
+    });
+    */
     $scope.boards = [];
     $scope.createBasicBoard();
     $scope.createBlankBoard(2);
     $scope.createBlankBoard(3);
   };
 
+  $scope.getBlankBoards = function() {
+    $scope.createBlankBoard(1);
+    $scope.createBlankBoard(2);
+    $scope.createBlankBoard(3);
+  }
 
-  $scope.getBoards();
+  $scope.getBlankBoards();
 
   $scope.copyFromBoard = function(board) {
     if (!board.hasContent) {
